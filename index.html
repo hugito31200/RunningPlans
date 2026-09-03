@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Strideplan — training planner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#plan" aria-label="Strideplan home"><span class="brand-mark">S</span><span>strideplan</span></a>
+        <nav class="nav" aria-label="Main navigation">
+          <a class="nav-link active" href="#plan" data-view="plan">Plan</a>
+          <a class="nav-link" href="#insights" data-view="insights">Insights</a>
+          <a class="nav-link" href="#builder" data-view="builder">Plan builder</a>
+        </nav>
+        <div class="topbar-actions"><button class="icon-button" id="themeToggle" aria-label="Toggle color theme">◐</button><button class="profile" aria-label="Profile">MC</button></div>
+      </header>
+
+      <main>
+        <section id="plan" class="view active-view">
+          <div class="page-heading"><div><p class="eyebrow">MARATHON BUILD · WEEK 06</p><h1>This week’s rhythm.</h1><p class="subheading">September 2 — 8 <span class="dot">·</span> 5 sessions planned</p></div><div class="heading-actions"><button class="button ghost" id="todayBtn">Today</button><div class="week-control"><button id="prevWeek" aria-label="Previous week">←</button><button id="nextWeek" aria-label="Next week">→</button></div><button class="button primary" id="addSession">+ Add session</button></div></div>
+          <div class="week-summary" id="weekSummary"></div>
+          <section class="calendar-section"><div class="calendar-heading"><h2>Training week</h2><span class="helper">Click a session to edit it</span></div><div class="week-grid" id="weekGrid"></div></section>
+          <section class="bottom-grid"><div class="up-next"><div class="section-top"><div><p class="eyebrow">UP NEXT</p><h2 id="upNextTitle">Threshold intervals</h2></div><button class="text-button" id="openNext">Open session →</button></div><div class="up-next-details" id="upNextDetails"></div></div><div class="notes-card"><p class="eyebrow">COACH'S NOTE</p><p>Keep the easy days truly easy. The quality work is there to make Saturday’s long run feel more composed, not to empty the tank.</p><span>— Maya, your coach</span></div></section>
+        </section>
+
+        <section id="insights" class="view">
+          <div class="page-heading"><div><p class="eyebrow">TRAINING ANALYSIS</p><h1>Your work, in context.</h1><p class="subheading">Last 12 weeks · Marathon build</p></div><button class="button ghost" id="exportBtn">↓ Export data</button></div>
+          <div class="metric-grid" id="metricGrid"></div>
+          <section class="chart-card"><div class="chart-heading"><div><h2>Weekly distance</h2><p>Volume has increased steadily with a recovery week in the middle.</p></div><div class="legend"><i></i> kilometers</div></div><div class="chart-wrap"><div class="chart-y"><span>70</span><span>50</span><span>30</span><span>10</span></div><div class="bar-chart" id="distanceChart"></div></div></section>
+          <section class="insights-row"><div class="chart-card load-card"><div class="chart-heading"><div><h2>Training load</h2><p>Minutes × perceived intensity</p></div><strong id="loadTotal"></strong></div><svg id="loadChart" viewBox="0 0 620 190" preserveAspectRatio="none" aria-label="Training load line chart"></svg></div><div class="balance-card"><p class="eyebrow">WEEKLY BALANCE</p><h2>Intentional variety.</h2><div class="balance-list"><div><span class="swatch easy"></span><b>Easy & recovery</b><strong>58%</strong></div><div><span class="swatch quality"></span><b>Quality work</b><strong>22%</strong></div><div><span class="swatch long"></span><b>Long run</b><strong>20%</strong></div></div><p class="muted">A sustainable distribution for building endurance while protecting freshness.</p></div></section>
+        </section>
+
+        <section id="builder" class="view">
+          <div class="builder-hero"><div><p class="eyebrow">PLAN BUILDER</p><h1>Start with the finish line.</h1><p class="subheading">Tell us what you’re aiming for and we’ll shape a thoughtful, progressive draft plan around it.</p></div><div class="finish-flag">⌁</div></div>
+          <div class="builder-layout"><form class="builder-form" id="builderForm"><h2>Your race objective</h2><label>Race distance<select id="raceDistance"><option value="5K">5K</option><option value="10K">10K</option><option value="Half marathon">Half marathon</option><option value="Marathon" selected>Marathon</option></select></label><label>Goal finishing time <span class="field-hint">hh:mm:ss</span><input id="goalTime" type="text" value="03:45:00" placeholder="03:45:00" /></label><label>Race date<input id="raceDate" type="date" value="2026-12-06" /></label><div class="experience"><span>Current running experience</span><div class="segmented"><button type="button">Newer runner</button><button type="button" class="selected">Regular runner</button><button type="button">Experienced</button></div></div><button class="button primary full" type="submit">Create draft plan <span>→</span></button></form><aside class="builder-preview"><p class="eyebrow">YOUR DRAFT WILL INCLUDE</p><div class="preview-steps"><div><span>01</span><p><b>Base & rhythm</b>Build consistency and easy aerobic volume.</p></div><div><span>02</span><p><b>Strength & stamina</b>Introduce purposeful quality sessions.</p></div><div><span>03</span><p><b>Race-specific work</b>Practice pace, fueling and confidence.</p></div><div><span>04</span><p><b>Taper & race</b>Arrive rested and ready to run.</p></div></div><div class="preview-note">Plans adapt as you go. Every session stays completely editable.</div></aside></div>
+          <div class="generated-plan" id="generatedPlan" hidden></div>
+        </section>
+      </main>
+    </div>
+    <dialog id="sessionDialog"><form method="dialog" id="sessionForm"><div class="modal-heading"><div><p class="eyebrow" id="modalDay">EDIT SESSION</p><h2 id="modalTitle">Session details</h2></div><button class="icon-button" value="cancel" aria-label="Close">×</button></div><input type="hidden" id="sessionId" /><div class="form-grid"><label>Session title<input id="editTitle" required /></label><label>Session type<select id="editType"><option>Easy run</option><option>Intervals</option><option>Tempo</option><option>Long run</option><option>Recovery</option><option>Rest day</option></select></label><label class="wide">Intervals & recovery description<textarea id="editDescription" rows="3" required></textarea></label><label>Total distance <div class="input-suffix"><input id="editDistance" type="number" min="0" step="0.1" required /><span>km</span></div></label><label>Total time <div class="input-suffix"><input id="editDuration" type="number" min="0" required /><span>min</span></div></label><label class="wide">Expected intensity <span class="range-value"><output id="intensityOutput">5</output> / 10</span><input id="editIntensity" type="range" min="0" max="10" value="5" /></label></div><div class="modal-actions"><button type="button" class="button danger" id="deleteSession">Delete</button><span></span><button value="cancel" class="button ghost">Cancel</button><button class="button primary" id="saveSession" value="default">Save changes</button></div></form></dialog>
+    <div class="toast" id="toast" role="status"></div>
+    <script src="app.js"></script>
+  </body>
+</html>
